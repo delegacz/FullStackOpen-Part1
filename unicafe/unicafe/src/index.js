@@ -25,15 +25,23 @@ const App = () => {
   )
 }
 const Statistics = (props) => {
+  if (props.all==0) {
+    return(
+      <>
+      <li>No feedback given</li>
+      </>
+    )
+  }
+  else {
   const average = ((props.good*1)+(props.neutral*0)+(props.bad*-1))/props.all
   const positiveRate =  (props.good*100)/props.all
-
   return (
     <>
       <li>average: {average}</li>
       <li>positive: {positiveRate} %</li>
     </>
   )
+  }
 }
 ReactDOM.render(
   <React.StrictMode>
