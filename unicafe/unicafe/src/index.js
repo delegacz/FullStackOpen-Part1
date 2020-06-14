@@ -8,7 +8,7 @@ const App = () => {
   const all = good+neutral+bad
   
   const average = ((good*1)+(neutral*0)+(bad*-1))/all
-  const positiveRate =  (good*100)/9
+  const positiveRate =  (good*100)/all
   console.log(positiveRate)
   return (
     <div>
