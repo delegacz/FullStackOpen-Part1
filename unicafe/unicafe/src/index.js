@@ -7,9 +7,6 @@ const App = () => {
   const [bad, setBad] = useState(0)
   const all = good+neutral+bad
   
-  const average = ((good*1)+(neutral*0)+(bad*-1))/all
-  const positiveRate =  (good*100)/all
-  console.log(positiveRate)
   return (
     <div>
       <h1>Give Feedback</h1>
@@ -22,13 +19,22 @@ const App = () => {
         <li>neutral: {neutral}</li>
         <li>bad:{bad}</li>
         <li>all: {all}</li>
-        <li>average: {average}</li>
-        <li>positive: {positiveRate} %</li>
+       <Statistics good={good} neutral={neutral} bad={bad} all={all}/>
       </ul>
     </div>
   )
 }
+const Statistics = (props) => {
+  const average = ((props.good*1)+(props.neutral*0)+(props.bad*-1))/props.all
+  const positiveRate =  (props.good*100)/props.all
 
+  return (
+    <>
+      <li>average: {average}</li>
+      <li>positive: {positiveRate} %</li>
+    </>
+  )
+}
 ReactDOM.render(
   <React.StrictMode>
     <App />
