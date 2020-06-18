@@ -4,12 +4,38 @@ import './index.css';
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
-  let newNumber  = () => Math.floor((Math.random()*5)+1)
+  const [votes, setVote] = useState(Array(6).fill(0))
   
+  const randomizeNumber = () => {
+    setSelected(Math.floor((Math.random()*5)+1))
+  }
+  const handleVote = (selected) => {
+    const copy =[...votes]
+    copy[selected] += 1
+    setVote(copy)
+  }
   return (
     <div>
-    <DisplayAnecdote selected={selected} />
-    <Button handleClick={() => setSelected(newNumber)} />
+    <DisplayAnecdote selected={selected} votes={votes}/>
+    <Button handleClick={() => handleVote(selected)} text='Vote' />
+    <Button handleClick={() => randomizeNumber()} text='Next anecdote' />
+    </div>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <>
+      <button onClick={props.handleClick}>{props.text}</button>
+    </>
+  )
+}
+
+const DisplayAnecdote = (props) => {
+  return(
+    <div>
+      <p>{anecdotes[props.selected]}</p>
+      <p>Votes: {props.votes[props.selected]}</p>
     </div>
   )
 }
@@ -23,24 +49,5 @@ const anecdotes = [
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
 
-const Button = (props) => {
-  return (
-    <>
-      <button onClick={props.handleClick}>Next Anecdote</button>
-    </>
-  )
-}
-const DisplayAnecdote = (props) => {
-  console.log(props.selected)
-  return(
-    <div>
-      <p>{anecdotes[props.selected]}</p>
-    </div>
-  )
-}
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+ReactDOM.render( <App />, document.getElementById('root')
 );
